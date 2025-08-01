@@ -2,23 +2,55 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: dev
+  application:
+    name: bankcards
+
+
+jwt:
+  secret: secret_bacnkcards_token
+  expiration: 3600000
+  issuer: bankcards
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/bankcars_database
+    url: jdbc:postgresql://localhost:5432/bankcards_database
     username: postgres
     password: 1111
-    driver-class-name:
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-    open-in-view: false
     properties:
       hibernate:
         format_sql: true
 
-jwt:
-  secret: your_super_secret_key_for_jwt_token_signing
-  expiration: 3600000
-  issuer: your-app-name
+---
 
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:postgresql://db:5432/prod_database
+    username: postgres
+    password: 1111
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: false
+
+  liquibase:
+    enabled: true
