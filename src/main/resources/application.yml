@@ -9,12 +9,13 @@ spring:
 
 
 jwt:
-  secret: secret_bacnkcards_token
+  secret: secret_bankcards_token
   expiration: 3600000
   issuer: bankcards
 
 ---
 
+#Develop profile
 spring:
   config:
     activate:
@@ -36,6 +37,7 @@ spring:
 
 ---
 
+#Production profile
 spring:
   config:
     activate:
